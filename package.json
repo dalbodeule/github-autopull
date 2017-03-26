@@ -1,0 +1,25 @@
+{
+  "name": "github-autopull",
+  "version": "0.0.1",
+  "description": "햐Github에서 자동으로 Pull 해옵니다.",
+  "main": "��main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trustypeople/github-autopull.git"
+  },
+  "keywords": [
+    "github",
+    "pull",
+    "autopull",
+    "pm2"
+  ],
+  "author": "trusty_people",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/trustypeople/github-autopull/issues"
+  },
+  "homepage": "https://github.com/trustypeople/github-autopull#readme"
+}
