@@ -1,0 +1,7 @@
+{
+    "app1": {
+        "url": "/url",
+        "secret": "secret",
+        "command": "command"
+    }
+}

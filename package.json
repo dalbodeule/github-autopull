@@ -2,7 +2,7 @@
   "name": "github-autopull",
   "version": "0.0.1",
   "description": "햐Github에서 자동으로 Pull 해옵니다.",
-  "main": "��main.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -21,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/trustypeople/github-autopull/issues"
   },
-  "homepage": "https://github.com/trustypeople/github-autopull#readme"
+  "homepage": "https://github.com/trustypeople/github-autopull#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "log4js": "^1.1.1"
+  }
 }
