@@ -27,6 +27,8 @@ server.post('*', (req, res) => {
                         logger.error('====== command stderr ======');
                     }
                 });
+            } else {
+                logger.error('Key is not match!');
             }
         }
     }
