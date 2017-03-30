@@ -1,7 +1,7 @@
 process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 
 const http = require('http'), crypto = require('crypto'), exec = require('child_process').exec,
-apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger(),
+apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger();
 
 const server = http.createServer((req, res) => {
     if(req.method == 'POST') {
