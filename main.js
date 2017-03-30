@@ -13,8 +13,7 @@ server.post('*', (req, res) => {
     for(let app in apps) {
         if(apps[app].url == req.originalUrl) {
             logger.info(app+' POST Reveived');
-            logger.info(req.body);
-            let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(JSON.parse(req.body)).digest('hex');
+            let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(req.body).digest('hex');
             if(hash == req.headers['x-hub-signature']) {
                 exec(apps[app].command, (err, stdout, stderr) => {
                     logger.info('====== command exex ======');
