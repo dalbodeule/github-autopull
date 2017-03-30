@@ -9,9 +9,8 @@ server.post('*', (req, res) => {
     for(let app in apps) {
         if(apps[app].url == req.originalUrl) {
             logger.info(app+' POST Reveived');
-            const hmac = crypto.createHmac('sha1', apps[app].secret);
-            let signature = 'sha1='+hmac.digest('hex');
-            if(req.headers['x-hub-signature'] == signature) {
+            let hash = 'sha1-'+crypto.createHmac('sha1', apps[app].secret).update(req.body).digest('hex');
+            if(hash == req.headers['x-hub-signature']) {
                 exec(apps[app].command, (err, stdout, stderr) => {
                     logger.info('====== command exex ======');
                     logger.info(stdout);
@@ -26,13 +25,15 @@ server.post('*', (req, res) => {
                         logger.error(stderr);
                         logger.error('====== command stderr ======');
                     }
+                    res.send('').end();
                 });
             } else {
+                res.status(400);
                 logger.error('Key is not match!');
+                res.send('').end();
             }
         }
     }
-    res.send('').end();
 });
 server.all('*', (req, res) => {
     res.send('').end();
