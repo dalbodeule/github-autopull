@@ -9,7 +9,7 @@ server.post('*', (req, res) => {
     for(let app in apps) {
         if(apps[app].url == req.originalUrl) {
             logger.info(app+' POST Reveived');
-            let hash = 'sha1-'+crypto.createHmac('sha1', apps[app].secret).digest('hex');
+            let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).digest('hex');
             if(hash == req.headers['x-hub-signature']) {
                 exec(apps[app].command, (err, stdout, stderr) => {
                     logger.info('====== command exex ======');
@@ -30,7 +30,9 @@ server.post('*', (req, res) => {
             } else {
                 res.status(400);
                 logger.error('Key is not match!');
-                res.send('').end();
+                logger.info('Github key is '+req.headers['x-hub-signature']);
+                logger.info('and local task key is '+hash);
+                res.json({error: 'Key is not match'}).end();
             }
         }
     }
