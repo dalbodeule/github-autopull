@@ -1,15 +1,19 @@
 process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim().toLowerCase() == 'production' ) ? 'production' : 'development';
 
 const http = require('http'), express = require('express'), crypto = require('crypto'), exec = require('child_process').exec,
-apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger();
+apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger(),
+bodyParser = require('body-parser');
 
 const server = express();
+
+server.use(bodyParser.urlencoded({extended: true}));
+server.use(bodyParser.text());
 
 server.post('*', (req, res) => {
     for(let app in apps) {
         if(apps[app].url == req.originalUrl) {
             logger.info(app+' POST Reveived');
-            logger.info(req.body+'');
+            logger.info(req.body);
             let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(JSON.parse(req.body)).digest('hex');
             if(hash == req.headers['x-hub-signature']) {
                 exec(apps[app].command, (err, stdout, stderr) => {

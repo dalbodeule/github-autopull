@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/trustypeople/github-autopull#readme",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "log4js": "^1.1.1"
   }
