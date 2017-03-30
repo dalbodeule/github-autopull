@@ -10,7 +10,7 @@ server.post('*', (req, res) => {
         if(apps[app].url == req.originalUrl) {
             logger.info(app+' POST Reveived');
             const hmac = crypto.createHmac('sha1', apps[app].secret);
-            let signature = 'sha1-'+hmac.digest('hex');
+            let signature = 'sha1='+hmac.digest('hex');
             if(req.headers['x-hub-signature'] == signature) {
                 exec(apps[app].command, (err, stdout, stderr) => {
                     logger.info('====== command exex ======');
