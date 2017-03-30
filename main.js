@@ -49,7 +49,7 @@ server = http.createServer((req, res) => {
     }
 });
 
-const HTTPServer = require('http').createServer(server);
+const HTTPServer = http.createServer(server);
 HTTPServer.listen(config.http_port, () => {
     logger.info('HTTP Listening!');
     logger.info('address: '+HTTPServer.address().address);
