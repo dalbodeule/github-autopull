@@ -3,7 +3,7 @@ process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim()
 const http = require('http'), crypto = require('crypto'), exec = require('child_process').exec,
 apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger(),
 
-server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => {
     if(req.method == 'POST') {
         for(let app in apps) {
             if(apps[app].url == req.url) {
@@ -49,9 +49,8 @@ server = http.createServer((req, res) => {
     }
 });
 
-const HTTPServer = http.createServer(server);
-HTTPServer.listen(config.http_port, () => {
+server.listen(config.http_port, () => {
     logger.info('HTTP Listening!');
-    logger.info('address: '+HTTPServer.address().address);
-    logger.info('port: '+HTTPServer.address().port);
+    logger.info('address: '+server.address().address);
+    logger.info('port: '+server.address().port);
 });
