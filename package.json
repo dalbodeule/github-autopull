@@ -1,6 +1,6 @@
 {
   "name": "github-autopull",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Github에서 자동으로 Pull 해옵니다.",
   "main": "main.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/trustypeople/github-autopull.git"
+    "url": "git+https://github.com/small-sunshines/github-autopull.git"
   },
   "keywords": [
     "github",
@@ -16,12 +16,12 @@
     "autopull",
     "pm2"
   ],
-  "author": "trusty_people",
+  "author": "small_sunshine",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/trustypeople/github-autopull/issues"
+    "url": "https://github.com/small-sunshines/github-autopull/issues"
   },
-  "homepage": "https://github.com/trustypeople/github-autopull#readme",
+  "homepage": "https://github.com/small-sunshines/github-autopull#readme",
   "dependencies": {
     "log4js": "^1.1.1"
   }

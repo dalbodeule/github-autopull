@@ -62,6 +62,6 @@ http_port: HTTP 서버가 돌아갈 포트를 지정합니다.
 MIT
 
 ## 제작자
-미쁨_trusty(trusty_people)
+볕뉘(small-sunshines)
 [npmjs](https://www.npmjs.com/~trusty_people)
-[github](https://github.com/trustypeople/)
+[github](https://github.com/small-sunshines/)
