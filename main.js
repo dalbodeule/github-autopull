@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
                     let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(body).digest('hex');
                     if(hash == req.headers['x-hub-signature']) {
                         let executeCommand = '';
-                        if(typeof apps[app].branch[req.ref[req.ref.length - 1]] == 'string') {
+                        if(typeof apps[app].branch[req.ref.split('/')[req.ref.length - 1]] == 'string') {
                             executeCommand = apps[app].branch[req.ref.last];
                         } else if(typeof apps[app].default == 'string' ) {
                             executeCommand = apps[app].default;
