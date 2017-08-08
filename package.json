@@ -1,6 +1,6 @@
 {
   "name": "github-autopull",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description": "Github에서 자동으로 Pull 해옵니다.",
   "main": "main.js",
   "scripts": {

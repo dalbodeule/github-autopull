@@ -3,6 +3,10 @@ process.env.NODE_ENV = ( process.env.NODE_ENV && ( process.env.NODE_ENV ).trim()
 const http = require('http'), crypto = require('crypto'), exec = require('child_process').exec,
 apps = require(__dirname+'/apps.json'), config = require(__dirname+'/config.json'), logger = require('log4js').getLogger();
 
+Array.prototype.last = () => {
+    return this[this.length - 1];
+}
+
 const server = http.createServer((req, res) => {
     if(req.method == 'POST') {
         for(let app in apps) {
@@ -15,23 +19,37 @@ const server = http.createServer((req, res) => {
                 req.on('end', () => {
                     let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(body).digest('hex');
                     if(hash == req.headers['x-hub-signature']) {
-                        exec(apps[app].command, (err, stdout, stderr) => {
-                            logger.info('====== command exex ======');
-                            logger.info(stdout);
-                            logger.info('====== command exec ======');
-                            if(err) {
-                                logger.error('====== command error ======');
-                                logger.error(err);
-                                logger.error('====== command error ======');
-                            }
-                            if(stderr) {
-                                logger.error('====== command stderr ======');
-                                logger.error(stderr);
-                                logger.error('====== command stderr ======');
-                            }
+                        let executeCommand = '';
+                        if(typeof apps[app].branch[req.ref.last] == 'string') {
+                            executeCommand = apps[app].branch[req.ref.last];
+                        } else if(typeof apps[app].default == 'string' ) {
+                            executeCommand = apps[app].default;
+                        } else {
+                            executeCommand = null;
+                        }
+
+                        if(executeCommand != null) {
+                            exec(executeCommand, (err, stdout, stderr) => {
+                                logger.info('====== command exex ======');
+                                logger.info(stdout);
+                                logger.info('====== command exec ======');
+                                if(err) {
+                                    logger.error('====== command error ======');
+                                    logger.error(err);
+                                    logger.error('====== command error ======');
+                                }
+                                if(stderr) {
+                                    logger.error('====== command stderr ======');
+                                    logger.error(stderr);
+                                    logger.error('====== command stderr ======');
+                                }
+                                res.writeHead(200, {'Content-Type': 'text/html'});
+                                res.end('post received');
+                            });
+                        } else {
                             res.writeHead(200, {'Content-Type': 'text/html'});
-                            res.end('post received');
-                        });
+                            res.end('');
+                        }
                     } else {
                         res.status(400);
                         logger.error('Key is not match!');
