@@ -21,10 +21,10 @@ const server = http.createServer((req, res) => {
                     if(hash == req.headers['x-hub-signature']) {
                         logger.info("Hash validation success");
                         let executeCommand = '';
-                        if(typeof req.ref == 'string') {
-                            let branch = req.ref.split('/')[req.ref.length - 1];
+                        if(typeof body.ref == 'string') {
+                            let branch = body.ref.split('/')[req.ref.length - 1];
                             logger.info('brench: '+branch);
-                            if(typeof apps[app].branch[req.ref.split('/')[req.ref.length - 1]] == 'string') {
+                            if(typeof apps[app].branch[branch] == 'string') {
                                 executeCommand = apps[app].branch[req.ref.last];
                                 logger.info(branch+" has execute commands");
                             } else if(typeof apps[app].default == 'string' ) {
@@ -35,6 +35,8 @@ const server = http.createServer((req, res) => {
                                 logger.info("not has command");
                             }
                         } else {
+                            logger.info("brench not found");
+                            logger.debug(body.ref);
                             executeCommand = null;
                         }
 
