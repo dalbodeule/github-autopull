@@ -21,12 +21,17 @@ const server = http.createServer((req, res) => {
                     if(hash == req.headers['x-hub-signature']) {
                         let executeCommand = '';
                         if(typeof req.ref == 'string') {
+                            let branch = req.ref.split('/')[req.ref.length - 1];
+                            logger.info('brench: '+branch);
                             if(typeof apps[app].branch[req.ref.split('/')[req.ref.length - 1]] == 'string') {
                                 executeCommand = apps[app].branch[req.ref.last];
+                                logger.info(branch+" has execute commands");
                             } else if(typeof apps[app].default == 'string' ) {
                                 executeCommand = apps[app].default;
+                                logger.info("default command");
                             } else {
                                 executeCommand = null;
+                                logger.info("not has command");
                             }
                         } else {
                             executeCommand = null;
