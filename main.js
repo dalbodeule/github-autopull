@@ -19,6 +19,7 @@ const server = http.createServer((req, res) => {
                 req.on('end', () => {
                     let hash = 'sha1='+crypto.createHmac('sha1', apps[app].secret).update(body).digest('hex');
                     if(hash == req.headers['x-hub-signature']) {
+                        logger.info("Hash validation success");
                         let executeCommand = '';
                         if(typeof req.ref == 'string') {
                             let branch = req.ref.split('/')[req.ref.length - 1];
