@@ -23,7 +23,8 @@ const server = http.createServer((req, res) => {
                         body = JSON.parse(body);
                         let executeCommand = '';
                         if(typeof body.ref == 'string') {
-                            let branch = body.ref.split('/')[req.ref.length - 1];
+                            let temp = body.ref.split('/');
+                            let branch = temp[temp.length - 1];
                             logger.info('branch: '+branch);
                             if(typeof apps[app].branch[branch] == 'string') {
                                 executeCommand = apps[app].branch[req.ref.last];
