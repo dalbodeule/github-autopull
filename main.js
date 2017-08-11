@@ -26,7 +26,7 @@ const server = http.createServer((req, res) => {
                             let temp = body.ref.split('/');
                             let branch = temp[temp.length - 1];
                             logger.info('branch: '+branch);
-                            if(typeof apps[app].branch[branch] == 'string') {
+                            if(typeof apps[app].branch != undefined && typeof apps[app].branch[branch] == 'string') {
                                 executeCommand = apps[app].branch[branch];
                                 logger.info(branch+" has execute commands");
                             } else if(typeof apps[app].default == 'string' ) {
